@@ -7,7 +7,7 @@ The installation can be achieved through the following codes, tested on the Goog
 
 Editted by: John Meng, 09/2023. 
 """
-
+dumme dumme Github
   
 from brian2 import *
 
