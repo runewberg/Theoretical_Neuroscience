@@ -1,5 +1,13 @@
 # book
 
+Rebased from xjwlab to RasHerlo.
+
+Further forked to andreagudik-blip, Center-for-Translational-Neuroscience and runewberg from there.
+
+Using it to transcribe .py to .ipynb formats
+
+Open to PRs from all participants
+
 ## Requirements
 
 This code is written in Python 2.7 and requires
