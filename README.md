@@ -1,6 +1,6 @@
 # book
 
-Rebased from xjwlab to RasHerlo.
+Rebased from xjwanglab to RasHerlo.
 
 Further forked to andreagudik-blip, Center-for-Translational-Neuroscience and runewberg from there.
 
