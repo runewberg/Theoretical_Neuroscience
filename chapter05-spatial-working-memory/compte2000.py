@@ -175,8 +175,7 @@ modelparams_murray = dict(
 
 stimparams = dict(
     # Peak input strength
-    Ipeak         = 375*pA,
-
+    Ipeak         = 375*pA
     # Input width and location
     sigma_stim    = 6.,
     theta_stim    = 180.,
