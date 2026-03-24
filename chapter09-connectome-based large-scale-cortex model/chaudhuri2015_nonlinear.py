@@ -31,11 +31,15 @@ class Model(object):
         # Loading Anatomical Data from Kennedy's group
         #---------------------------------------------------------------------------------
         
-        with open(datafile,'rb') as f:
-            p = pickle.load(f)
+        try:
+            with open(datafile,'rb') as f:
+                p = pickle.load(f)
+        except UnicodeDecodeError:  # Python 3 compatibility with older pickles
+            with open(datafile,'rb') as f:
+                p = pickle.load(f, encoding='latin1')
 
-        print 'Initializing Model. From ' + datafile + ' load:',
-        print p.keys()
+        print('Initializing Model. From ' + datafile + ' load:')
+        print(p.keys())
 
         p['hier_vals']   = p['hier_vals']/max(p['hier_vals']) # Normalized between 0 and 1
         p['n_area']      = len(p['areas'])
@@ -55,8 +59,8 @@ class Model(object):
         p['eta']        = 3.4
         p['gamma']      = 0.641
         
-        for key, value in ext_params.iteritems():
-            p[key]      = value
+        for key, value in ext_params.items():
+            p[key] = value
 
         self.fI         = lambda x : x*(x>0) # f-I curve
 
@@ -66,7 +70,7 @@ class Model(object):
     def run_stimulus(self, plotfile='ReplicateChaudhuri2015_Fig3A.pdf'):
 
         area_act        = 'V1'
-        print 'Running network with stimulation to ' + area_act
+        print('Running network with stimulation to ' + area_act)
 
         #---------------------------------------------------------------------------------
         # Redefine Parameters
@@ -145,7 +149,7 @@ class Model(object):
         # Running the network
         #---------------------------------------------------------------------------------
 
-        for i_t in xrange(1, n_t):
+        for i_t in range(1, n_t):
 
             d_s_n = -s_n[i_t-1] + p['gamma'] * (p['tau_exc']/
                                                 1000) * (1-s_n[i_t-1]) * r_exc[i_t-1]
@@ -196,7 +200,7 @@ class Model(object):
 
         if plotfile is not None:
             #plt.savefig(plotfile)
-            print 'Figure saved at ' + plotfile
+            print('Figure saved at ' + str(plotfile))
         
 
 if __name__ == '__main__':
