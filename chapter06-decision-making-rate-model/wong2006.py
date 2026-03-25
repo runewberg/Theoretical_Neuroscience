@@ -11,7 +11,6 @@ The Journal of neuroscience 26.4 (2006): 1314-1328.
 """
 from __future__ import division
 import numpy as np
-import numpy.random
 import matplotlib.pyplot as plt
 
 
@@ -74,7 +73,7 @@ class Model(object):
         self.I2 = np.zeros(N_record)
 
         # Loop over time points in a trial
-        for i_t in xrange(NT):
+        for i_t in range(NT):
             # Random dot stimulus
             Istim1 = Istim1_plot[i_t]
             Istim2 = Istim2_plot[i_t]
@@ -95,15 +94,23 @@ class Model(object):
             S2_next = S2 + p['dt']*(-S2/p['tauS'] + (1-S2)*p['gamma']*r2)
 
             # Ornstein-Uhlenbeck generation of noise in pop1 and 2
-            Ieta1_next = Ieta1 + (p['dt']/p['tau0'])*(p['I0']-Ieta1) + np.sqrt(p['dt']/p['tau0'])*p['sigma']*numpy.random.randn(n_trial)
-            Ieta2_next = Ieta2 + (p['dt']/p['tau0'])*(p['I0']-Ieta2) + np.sqrt(p['dt']/p['tau0'])*p['sigma']*numpy.random.randn(n_trial)
+            Ieta1_next = (
+                Ieta1
+                + (p['dt']/p['tau0'])*(p['I0']-Ieta1)
+                + np.sqrt(p['dt']/p['tau0'])*p['sigma']*np.random.randn(n_trial)
+            )
+            Ieta2_next = (
+                Ieta2
+                + (p['dt']/p['tau0'])*(p['I0']-Ieta2)
+                + np.sqrt(p['dt']/p['tau0'])*p['sigma']*np.random.randn(n_trial)
+            )
 
             S1 = S1_next
             S2 = S2_next
             Ieta1 = Ieta1_next
             Ieta2 = Ieta2_next
 
-            if np.mod(i_t,n_record) == 1:
+            if i_t % n_record == 1:
                 self.r1[i_record] = r1
                 self.r2[i_record] = r2
                 self.I1[i_record] = Istim1

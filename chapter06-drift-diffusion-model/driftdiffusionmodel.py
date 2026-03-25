@@ -33,7 +33,7 @@ def run_ddm(boundary, drift, noise, n_trial=1, starting_point=0.,
     if rng is None:
         rng = np.random.RandomState()
 
-    # Initialization
+    # Initialization    
     x = starting_point * np.ones(n_trial)
     notcross = np.ones(n_trial, dtype=bool)
 
